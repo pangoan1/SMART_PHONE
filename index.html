@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>پروژه کار و فناوری جواد</title>
+<style>
+*{box-sizing:border-box}
+
+/* ---------- تم‌ها (رنگ‌ها فقط اینجا عوض می‌شن) ---------- */
+:root{
+  --accent:#7c3aed;
+  --hero:linear-gradient(135deg,#4f46e5,#7c3aed,#db2777);
+  --page:radial-gradient(circle at 15% 10%,rgba(56,189,248,.45),transparent 30%),radial-gradient(circle at 85% 20%,rgba(168,85,247,.45),transparent 30%),radial-gradient(circle at 50% 90%,rgba(34,197,94,.35),transparent 35%),#020617;
+  --topbar:linear-gradient(135deg,#111827,#1e293b 45%,#312e81);
+  --screen:linear-gradient(180deg,#f8fafc,#e2e8f0);
+  --card:rgba(255,255,255,.94);
+  --card-text:#0f172a;
+  --card-sub:#334155;
+  --note:linear-gradient(135deg,#fff,#fff7ed);
+}
+:root[data-theme="blue"]{
+  --accent:#0891b2;
+  --hero:linear-gradient(135deg,#2196f3,#00bcd4,#3f51b5);
+  --page:radial-gradient(circle at 15% 10%,rgba(33,150,243,.5),transparent 32%),radial-gradient(circle at 85% 20%,rgba(0,188,212,.45),transparent 30%),radial-gradient(circle at 50% 90%,rgba(63,81,181,.4),transparent 35%),#020617;
+  --topbar:linear-gradient(135deg,#0f172a,#164e63 50%,#1e40af);
+}
+:root[data-theme="sunset"]{
+  --accent:#ec407a;
+  --hero:linear-gradient(135deg,#ff7043,#ec407a,#ab47bc);
+  --page:radial-gradient(circle at 15% 10%,rgba(255,112,67,.5),transparent 32%),radial-gradient(circle at 85% 20%,rgba(236,64,122,.45),transparent 30%),radial-gradient(circle at 50% 90%,rgba(171,71,188,.4),transparent 35%),#1a0b14;
+  --topbar:linear-gradient(135deg,#2a0f1c,#7f1d3f 55%,#c2410c);
+}
+:root[data-theme="dark"]{
+  --accent:#9ca3af;
+  --hero:linear-gradient(135deg,#111827,#374151,#4b5563);
+  --page:#020617;
+  --topbar:linear-gradient(135deg,#000,#111827);
+  --screen:#0b1120;
+  --card:rgba(31,41,55,.95);
+  --card-text:#f1f5f9;
+  --card-sub:#cbd5e1;
+  --note:rgba(31,41,55,.95);
+}
+
+/* ---------- صفحه اصلی ---------- */
+html{background:#020617}
+body{margin:0;min-height:100vh;padding:8px;background:var(--page);font-family:Tahoma,Arial,sans-serif;color:#fff;overflow-x:hidden}
+.Phone{width:min(430px,100%);margin:0 auto}
+.screen{position:relative;min-height:calc(100vh - 20px);border:6px solid #050505;border-radius:34px;background:var(--screen);color:#fff;overflow:hidden;box-shadow:0 0 0 2px #334155,0 25px 60px rgba(0,0,0,.5)}
+.topbar{height:62px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;background:var(--topbar);box-shadow:0 4px 18px rgba(0,0,0,.25)}
+.logo{font-weight:bold;font-size:20px;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.liveClock{font-size:14px}
+.dots{display:flex;gap:7px}
+.dot{width:12px;height:12px;border-radius:50%;background:#fff;box-shadow:0 0 8px rgba(255,255,255,.7)}
+.content{padding:18px 14px 30px}
+
+.hero{text-align:center;padding:24px 14px;border-radius:26px;background:var(--hero);box-shadow:0 12px 30px rgba(79,70,229,.28);animation:fade .8s ease}
+.avatar{width:86px;height:86px;margin:auto;border-radius:26px;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.45);display:flex;align-items:center;justify-content:center;font-size:42px;box-shadow:0 10px 25px rgba(0,0,0,.22)}
+h1{margin:12px 0 5px;font-size:26px;text-shadow:0 2px 5px rgba(0,0,0,.35)}
+.sub{opacity:.95;text-shadow:0 2px 5px rgba(0,0,0,.35)}
+
+.grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px}
+.card{border-radius:18px;padding:18px;background:var(--card);color:var(--card-text);border-right:6px solid var(--accent);box-shadow:0 8px 24px rgba(15,23,42,.14);animation:up .7s ease both}
+.card h2{margin:0 0 8px;font-size:19px;font-weight:900}
+.card p,.card li{line-height:1.9;font-size:14px;color:var(--card-sub);margin-top:0}
+.card.note{margin-top:14px;border-right-color:#f59e0b;background:var(--note)}
+
+.question{margin-top:14px;text-align:center;padding:16px 12px;border-radius:20px;background:linear-gradient(135deg,#0f172a,#312e81,#581c87);box-shadow:0 12px 28px rgba(15,23,42,.28);animation:up .9s ease}
+.question h2{margin:0 0 8px;font-size:19px}
+.buttons{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px;min-height:100px}
+button{border:0;border-radius:999px;color:#fff;font-family:inherit;font-weight:bold;cursor:pointer;transition:.25s}
+#yes,#no{min-width:120px;font-size:20px;padding:16px 30px;border:2px solid rgba(255,255,255,.35);box-shadow:0 8px 18px rgba(0,0,0,.25)}
+#yes{background:linear-gradient(135deg,#16a34a,#22c55e)}
+#no{background:linear-gradient(135deg,#7c3aed,#a855f7)}
+#msg{display:none;font-size:22px;font-weight:bold;text-shadow:0 2px 5px rgba(0,0,0,.5)}
+.footer{text-align:center;margin-top:15px;color:var(--card-sub);font-size:12px;font-weight:700}
+
+/* ---------- صفحه قفل ---------- */
+.overlay{position:fixed;inset:0;z-index:50;background:linear-gradient(135deg,#08111f,#251044);display:flex;align-items:flex-start;justify-content:center;color:#fff;text-align:center;padding:35px 20px;overflow-y:auto}
+.lock{width:min(430px,100%);padding:30px 24px 24px;border-radius:30px;background:#ffffff12;backdrop-filter:blur(15px);box-shadow:0 20px 60px #0008;margin:auto 0}
+.welcome-badge{width:78px;height:78px;margin:0 auto 10px;border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:40px;background:linear-gradient(135deg,#38bdf8,#8b5cf6,#ec4899);box-shadow:0 12px 28px rgba(0,0,0,.28)}
+.time{font-size:48px;font-weight:bold;margin:8px}
+.date{opacity:.8;margin-bottom:25px}
+.entry-title{font-size:25px;font-weight:900;margin:8px 0 4px;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+.entry-text{font-size:15px;line-height:2;color:rgba(255,255,255,.92);margin:8px auto 20px;max-width:330px}
+.enter{width:100%;background:linear-gradient(135deg,#22c55e,#06b6d4,#8b5cf6,#ec4899);padding:15px 30px;font-size:19px;font-weight:900;border:1px solid rgba(255,255,255,.35);box-shadow:0 10px 24px rgba(0,0,0,.28)}
+.entry-hint{margin-top:14px;font-size:13px;color:rgba(255,255,255,.75)}
+
+/* ---------- پنجره‌ها و دکمه‌های شناور ---------- */
+#fireworks{position:fixed;inset:0;z-index:70;pointer-events:none;width:100%;height:100%}
+.modal{display:none;position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.45);align-items:center;justify-content:center;padding:20px}
+.modalBox{background:#fff;color:#0f172a;padding:28px;border-radius:25px;text-align:center;width:min(390px,100%);border:1px solid #cbd5e1;box-shadow:0 20px 60px #0008}
+.modalBox button{background:linear-gradient(135deg,#8b5cf6,#ec4899);padding:12px 25px;font-size:17px;margin-top:12px}
+.sound{position:fixed;bottom:12px;left:12px;z-index:10;border-radius:50%;width:44px;height:44px;background:#0f172a;color:#fff;font-size:19px;border:2px solid rgba(255,255,255,.45);box-shadow:0 8px 20px rgba(0,0,0,.3)}
+
+.theme-menu-wrap{position:fixed;top:12px;right:12px;z-index:50}
+.theme-dots{width:46px;height:46px;border-radius:50%;font-size:30px;font-weight:900;line-height:1;background:#fff;color:#0f172a;box-shadow:0 6px 18px rgba(0,0,0,.28)}
+.theme-menu{display:none;position:absolute;right:0;top:54px;width:210px;background:#fff;border:1px solid #cbd5e1;border-radius:18px;padding:12px;box-shadow:0 15px 40px rgba(0,0,0,.3)}
+.theme-menu.show{display:block}
+.theme-menu h3{margin:4px 6px 10px;font-size:16px;color:#0f172a}
+.theme-choice{width:100%;border-radius:12px;padding:10px;margin:4px 0;text-align:right;font-size:14px}
+.theme-choice:hover{transform:scale(1.02)}
+.t-purple{background:linear-gradient(135deg,#4f46e5,#db2777)}
+.t-blue{background:linear-gradient(135deg,#2196f3,#00bcd4)}
+.t-sunset{background:linear-gradient(135deg,#ff7043,#ec407a)}
+.t-dark{background:linear-gradient(135deg,#171717,#555)}
+
+@keyframes fade{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<div class="theme-menu-wrap">
+  <button class="theme-dots" onclick="toggleThemeMenu()" aria-label="منو">⋮</button>
+  <div class="theme-menu" id="themeMenu">
+    <h3>🎨 تغییر تم</h3>
+    <button class="theme-choice t-purple" onclick="setTheme('purple')">💜 بنفش و صورتی</button>
+    <button class="theme-choice t-blue" onclick="setTheme('blue')">💙 آبی و فیروزه‌ای</button>
+    <button class="theme-choice t-sunset" onclick="setTheme('sunset')">🧡 نارنجی و صورتی</button>
+    <button class="theme-choice t-dark" onclick="setTheme('dark')">🖤 دارک</button>
+  </div>
+</div>
+
+<div class="overlay" id="lock">
+  <div class="lock">
+    <div class="welcome-badge">📱</div>
+    <div class="time" id="lockTime">--:--</div>
+    <div class="date" id="lockDate">در حال بارگذاری...</div>
+    <div class="entry-title">به پروژه کار و فناوری جواد خوش آمدید</div>
+    <h2>Welcome 👋</h2>
+    <p class="entry-text">برای مشاهده صفحه معرفی و چیزهایی که یاد می‌گیرم، روی دکمه زیر بزنید.</p>
+    <button class="enter" id="enter">🚀 ورود به پروژه</button>
+    <div class="entry-hint">✨ آماده‌ای؟ بریم شروع کنیم!</div>
+  </div>
+</div>
+
+<div class="Phone">
+  <div class="screen">
+    <div class="topbar">
+      <div class="logo">Phone</div>
+      <div class="liveClock" id="clock">--:--:--</div>
+      <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    </div>
+
+    <div class="content">
+      <div class="hero">
+        <div class="avatar">👨‍💻</div>
+        <h1>به پروژه کار و فناوری جواد خوش آمدید 👋</h1>
+        <div class="sub">به صفحه معرفی پروژه و فعالیت‌های جواد خوش آمدید.</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>👤 درباره من</h2>
+          <p>من به فناوری، کامپیوتر و برنامه‌نویسی علاقه دارم و دوست دارم ایده‌هایم را به پروژه‌های واقعی تبدیل کنم.</p>
+        </div>
+        <div class="card">
+          <h2>🎮 علاقه‌مندی‌ها</h2>
+          <p>برنامه‌نویسی، کامپیوتر، بازی، فناوری و ساخت پروژه‌های خلاقانه.</p>
+        </div>
+        <div class="card">
+          <h2>📚 در حال یادگیری</h2>
+          <ul>
+            <li>HTML و CSS</li>
+            <li>جاوااسکریپت</li>
+            <li>پایتون</li>
+            <li>برنامه‌نویسی</li>
+            <li>طراحی سایت</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>🎯 هدف من</h2>
+          <p>یادگیری بیشتر برنامه‌نویسی و تبدیل شدن به یک توسعه‌دهنده حرفه‌ای.</p>
+        </div>
+      </div>
+
+      <div class="card note">
+        <h2>💡 درباره پروژه</h2>
+        <p>این پروژه برای درس کار و فناوری ساخته شده است. هدف آن ترکیب طراحی، برنامه‌نویسی و ایده‌های تعاملی برای ساخت یک تجربه متفاوت و جذاب است.</p>
+      </div>
+
+      <div class="question">
+        <h2>👨‍🏫 از جواد راضی هستید؟</h2>
+        <div class="buttons">
+          <button id="yes">بله 👍</button>
+          <button id="no">خیر 👎</button>
+        </div>
+        <div id="msg">🎉 ممنونم معلم عزیز! ❤️</div>
+      </div>
+
+      <div class="footer">ساخته شده توسط جواد 📱 | پروژه کار و فناوری</div>
+    </div>
+  </div>
+</div>
+
+<button class="sound" id="sound" title="صدای ورود">🔊</button>
+<canvas id="fireworks"></canvas>
+
+<div class="modal" id="modal">
+  <div class="modalBox">
+    <div style="font-size:50px">🎉</div>
+    <h2>نظر ثبت شد!</h2>
+    <p>ممنونم معلم عزیز که پروژه من را بررسی کردید ❤️</p>
+    <button id="close">باشه</button>
+  </div>
+</div>
+
+<script>
+let size = 20, soundOn = true;
+const yes = document.getElementById("yes");
+const no = document.getElementById("no");
+const msg = document.getElementById("msg");
+const lock = document.getElementById("lock");
+const modal = document.getElementById("modal");
+
+/* ساعت زنده */
+function updateTime() {
+  const d = new Date();
+  document.getElementById("clock").textContent = d.toLocaleTimeString("fa-IR");
+  document.getElementById("lockTime").textContent = d.toLocaleTimeString("fa-IR", { hour: "2-digit", minute: "2-digit" });
+  document.getElementById("lockDate").textContent = d.toLocaleDateString("fa-IR", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+}
+setInterval(updateTime, 1000);
+updateTime();
+
+/* صدا */
+function beep() {
+  if (!soundOn) return;
+  try {
+    const C = window.AudioContext || window.webkitAudioContext;
+    const c = new C(), now = c.currentTime, o = c.createOscillator(), g = c.createGain();
+    o.type = "sawtooth";
+    o.frequency.setValueAtTime(220, now);
+    o.frequency.exponentialRampToValueAtTime(1100, now + .45);
+    g.gain.setValueAtTime(.001, now);
+    g.gain.exponentialRampToValueAtTime(.24, now + .18);
+    g.gain.exponentialRampToValueAtTime(.001, now + .5);
+    o.connect(g); g.connect(c.destination);
+    o.start(now); o.stop(now + .52);
+    setTimeout(() => {
+      const n = c.createBufferSource();
+      const b = c.createBuffer(1, c.sampleRate * .22, c.sampleRate);
+      const d = b.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / d.length);
+      const ng = c.createGain();
+      ng.gain.value = .5;
+      n.buffer = b; n.connect(ng); ng.connect(c.destination); n.start();
+    }, 430);
+  } catch (e) {}
+}
+
+function speakWelcome() {
+  if (!soundOn || !("speechSynthesis" in window)) return;
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance("خوش آمدید به پروژه فناوری جواد");
+    u.lang = "fa-IR"; u.rate = .85; u.pitch = 1.05; u.volume = 1;
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+
+document.getElementById("enter").onclick = () => {
+  lock.style.display = "none";
+  speakWelcome();
+};
+
+document.getElementById("sound").onclick = () => {
+  soundOn = !soundOn;
+  document.getElementById("sound").textContent = soundOn ? "🔊" : "🔇";
+};
+
+/* دکمه خیر: دکمه بله بزرگ‌تر می‌شه */
+no.addEventListener("click", () => {
+  size += 8;
+  yes.style.fontSize = size + "px";
+  yes.style.padding = (16 + size / 3) + "px " + (30 + size / 2) + "px";
+});
+
+/* آتش‌بازی */
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+let particles = [];
+
+function resizeFireworks() {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+addEventListener("resize", resizeFireworks);
+resizeFireworks();
+
+function burst(x, y) {
+  const colors = ["#22c55e", "#8b5cf6", "#ec4899", "#38bdf8", "#facc15", "#fb7185"];
+  for (let i = 0; i < 70; i++) {
+    const a = Math.random() * Math.PI * 2, s = 2 + Math.random() * 6;
+    particles.push({
+      x, y,
+      vx: Math.cos(a) * s,
+      vy: Math.sin(a) * s,
+      life: 1,
+      size: 2 + Math.random() * 3,
+      color: colors[Math.floor(Math.random() * colors.length)]
+    });
+  }
+}
+
+function animateFireworks() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles = particles.filter(p => p.life > 0);
+  for (const p of particles) {
+    p.x += p.vx; p.y += p.vy; p.vy += .08; p.life -= .018;
+    ctx.globalAlpha = Math.max(0, p.life);
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  if (particles.length) requestAnimationFrame(animateFireworks);
+}
+
+yes.addEventListener("click", () => {
+  yes.style.fontSize = "20px";
+  yes.style.padding = "16px 30px";
+  msg.style.display = "block";
+  modal.style.display = "flex";
+  beep();
+  setTimeout(() => {
+    burst(canvas.width * .28, canvas.height * .32);
+    burst(canvas.width * .72, canvas.height * .27);
+    animateFireworks();
+  }, 120);
+});
+
+document.getElementById("close").onclick = () => modal.style.display = "none";
+
+/* منوی تم */
+function toggleThemeMenu() {
+  document.getElementById("themeMenu").classList.toggle("show");
+}
+
+function setTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  document.getElementById("themeMenu").classList.remove("show");
+}
+
+document.addEventListener("click", e => {
+  if (!e.target.closest(".theme-menu-wrap")) {
+    document.getElementById("themeMenu").classList.remove("show");
+  }
+});
+</script>
+</body>
+</html>
